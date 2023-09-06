@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Page Title</title>
+    <style>
+        body {
+            background-color: lightblue;
+            text-align: center; /* Center-align content */
+        }
+
+        /* Increase font size for paragraphs, make text white */
+        p {
+            font-size: 20px; /* Adjust the font size as needed */
+            max-width: 600px; /* Set a maximum width for the paragraphs */
+            margin: 20px auto; /* Center the paragraphs horizontally and add top margin for spacing */
+            padding: 10px; /* Optional: Add some padding for spacing */
+            color: black; /* Set the text color to white */
+            display: none; /* Initially hide paragraphs */
+        }
+
+        /* Style anchor tags to look like buttons */
+        button {
+            width: 150px; /* Set a fixed width for the buttons */
+            padding: 15px 0; /* Increase padding for larger buttons */
+            background-color: #0074d9; /* Button background color */
+            color: white; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Adjust font size for buttons */
+            transition: background-color 0.3s ease; /* Smooth transition for button color */
+            margin: 10px; /* Add some spacing around the buttons */
+        }
+
+        /* Add some spacing between buttons */
+        button + button {
+            margin-left: 0;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Button color on hover */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Allow buttons to wrap to the next line if necessary */
+        }
+    </style>
+    <script>
+        document.getElementById("registrationForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get user inputs
+            var name = document.getElementById("name").value;
+            var section = document.getElementById("section").value;
+
+            // Redirect to the main reading page with user data
+            window.location.href = "main.html?name=" + encodeURIComponent(name) + "&section=" + encodeURIComponent(section);
+
+            // Hide the registration form
+            document.getElementById("registrationForm").style.display = "none";
+        });
+
+        // Your existing JavaScript code for showing/hiding paragraphs and other functionality.
+        // ...
+    </script>
+</head>
+<body>
+    <!-- User registration form -->
+    <form id="registrationForm" action="register.php" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="section">Section:</label>
+        <input type="text" id="section" name="section" required><br><br>
+        <input type="submit" value="Register">
+    </form>
+
+    <div class="button-container">
+        <button id="showSection1" onclick="showParagraph('section1'); hideButton('showSection1'); startTimer();">Show Section 1</button>
+        <button id="showSection2" onclick="showParagraph('section2'); hideButton('showSection2'); startTimer();">Show Section 2</button>
+        <button id="backSection" onclick="hideParagraphs(); showButton('showSection1'); showButton('showSection2'); resetTimer();">Back</button>
+        <button id="doneButton" onclick="calculateTime();">Done</button>
+    </div>
+
+    <p id="section1">In the realm of modern technology, artificial intelligence (AI) has emerged as a revolutionary force. AI refers to the development of computer systems that can perform tasks that typically require human intelligence, such as problem-solving, learning, and decision-making. Machine learning, a subset of AI, has gained particular prominence as it allows computers to improve their performance through experience. This technology has practical applications in various fields, from healthcare to finance and even autonomous vehicles. As grade 12 students, understanding the fundamentals of AI is crucial, as it will likely shape the future job landscape and influence many aspects of our daily lives.</p>
+    <p id="section2">Environmental conservation is a pressing issue that demands our attention. Climate change, deforestation, and pollution threaten the delicate balance of our planet's ecosystems. As grade 12 students, you have the opportunity to become informed and active environmental stewards. By learning about sustainable practices, renewable energy sources, and the importance of biodiversity, you can contribute to the preservation of our environment for future generations. It's not just a global concern; it's a responsibility that each one of us must shoulder to ensure a healthier and more sustainable future.</p>
+
+    <script>
+        var startTime;
+        var endTime;
+
+        function showParagraph(sectionId) {
+            var paragraph = document.getElementById(sectionId);
+            if (paragraph) {
+                paragraph.style.display = 'block'; // Show the paragraph
+            }
+        }
+
+        function hideParagraphs() {
+            var paragraphs = document.querySelectorAll('p');
+            paragraphs.forEach(function(paragraph) {
+                paragraph.style.display = 'none'; // Hide all paragraphs
+            });
+        }
+
+        function hideButton(buttonId) {
+            var button = document.getElementById(buttonId);
+            if (button) {
+                button.style.display = 'none'; // Hide the clicked button
+            }
+        }
+
+        function showButton(buttonId) {
+            var button = document.getElementById(buttonId);
+            if (button) {
+                button.style.display = 'block'; // Show the button
+            }
+        }
+
+        function startTimer() {
+            startTime = new Date().getTime(); // Record the start time
+        }
+
+        function resetTimer() {
+            startTime = null;
+            endTime = null;
+        }
+
+        function calculateTime() {
+            if (startTime) {
+                endTime = new Date().getTime(); // Record the end time
+                var timeElapsed = (endTime - startTime) / 1000; // Calculate time elapsed in seconds
+                alert('Time taken to read: ' + timeElapsed + ' seconds'); // Display time taken
+                // You can redirect to another page here if needed.
+            } else {
+                alert('Please click a "Show Section" button first.');
+            }
+        }
+    </script>
+</body>
+</html>
+
+
